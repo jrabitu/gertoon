@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/webtoon.dart';
-import 'author_screen.dart';
+import '../features/4_comic_detail/author_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   static const routeName = '/detail';

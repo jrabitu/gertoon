@@ -20,8 +20,8 @@ class ComicCard extends StatelessWidget{
             borderRadius: BorderRadius.circular(8.0),
             child: Image.network(
               comic.coverUrl,
-              width: 120,
-              height: 160,
+              width: 140,
+              height: 180,
               fit: BoxFit.cover,
               // Error handling for image loading
               errorBuilder: (context, error, stackTrace) {
@@ -40,7 +40,7 @@ class ComicCard extends StatelessWidget{
             ),
           ),
           const SizedBox(height: 4.0),
-          //  We can add a rating widget here later
+          // add a rating widget here later
           Text(
             'Rating: ${comic.rating}',
             style: const TextStyle(

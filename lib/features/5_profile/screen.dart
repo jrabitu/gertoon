@@ -1,6 +1,5 @@
-import 'dart:ui'; // For BackdropFilter
+// lib/features/5_profile/profile_screen.dart
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // For custom fonts
 import 'package:gertoon/core/app_colors.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -8,383 +7,151 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3, // Notes, Collects, Likes
-      child: Scaffold(
-        drawer: Drawer(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [AppColors.accentDeep, Colors.black87],
-              ),
-            ),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [AppColors.accentDeep, Colors.black54],
-                    ),
-                  ),
-                  child: Text(
-                    'Settings',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      shadows: const [
-                        Shadow(
-                          blurRadius: 4,
-                          color: Colors.black45,
-                          offset: Offset(2, 2),
-                        ),
-                      ],
-                    ),
-                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              elevation: 0,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              title: const Text('My Profile'),
+              centerTitle: false,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.view_list_rounded),
+                  onPressed: () {},
+                  tooltip: 'Menu',
                 ),
-                ...[
-                  ListTile(
-                    leading: const Icon(Icons.account_circle, color: Colors.white70),
-                    title: Text(
-                      'Account Settings',
-                      style: GoogleFonts.poppins(color: Colors.white),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.notifications, color: Colors.white70),
-                    title: Text(
-                      'Notification Preferences',
-                      style: GoogleFonts.poppins(color: Colors.white),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Divider(color: Colors.white24),
-                  ListTile(
-                    leading: const Icon(Icons.logout, color: Colors.white70),
-                    title: Text(
-                      'Log Out',
-                      style: GoogleFonts.poppins(color: Colors.white),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ].map(
-                  (child) => AnimatedScale(
-                    scale: 1.0,
-                    duration: const Duration(milliseconds: 200),
-                    child: child,
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.settings_outlined),
+                  onPressed: () {},
+                  tooltip: 'Settings',
                 ),
               ],
             ),
-          ),
-        ),
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 280.0,
-                pinned: true,
-                elevation: 0,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
-                  titlePadding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-                  background: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      // Parallax background image
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        transform: Matrix4.identity()
-                          ..translate(0.0, -50.0 * (innerBoxIsScrolled ? 1 : 0.5)),
-                        child: Image.network(
-                          'https://i.pinimg.com/1200x/7c/d4/8d/7cd48de250115a58f499b34d453c9299.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      // Gradient overlay
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.black.withOpacity(0.3),
-                              Colors.black.withOpacity(0.7),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // Profile Header Content
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Row(
-                              children: [
-                                // Neumorphic Avatar
-                                AnimatedContainer(
-                                  duration: const Duration(milliseconds: 300),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.4),
-                                        offset: const Offset(4, 4),
-                                        blurRadius: 8,
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.2),
-                                        offset: const Offset(-4, -4),
-                                        blurRadius: 8,
-                                      ),
-                                    ],
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 45,
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: const NetworkImage(
-                                      'https://i.pinimg.com/736x/ce/18/32/ce18326f474404bd6ea32a26653a27b2.jpg',
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Khulan Dashkhorloo',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w900,
-                                          color: Colors.white,
-                                          letterSpacing: 0.5,
-                                          shadows: const [
-                                            Shadow(
-                                              blurRadius: 4.0,
-                                              color: Colors.black45,
-                                              offset: Offset(2, 2),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Text(
-                                        'rednote ID: 95409825303',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white70,
-                                          fontSize: 14,
-                                          letterSpacing: 0.3,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'No bio yet',
-                              style: GoogleFonts.poppins(
-                                color: Colors.white70,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _buildStatsColumn('1', 'Following'),
-                                  _buildStatsColumn('0', 'Followers'),
-                                  _buildStatsColumn('0', 'Likes&Col'),
-                                  const SizedBox(width: 15),
-                                  AnimatedScale(
-                                    scale: 1.0,
-                                    duration: const Duration(milliseconds: 200),
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.accentDeep,
-                                        foregroundColor: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        elevation: 5,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 8,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Edit Profile',
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Builder(
-                                    builder: (context) {
-                                      return IconButton(
-                                        icon: const Icon(Icons.settings, color: Colors.white),
-                                        onPressed: () {
-                                          Scaffold.of(context).openDrawer();
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
 
-              // Tab Bar Section
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverTabDelegate(
-                  TabBar(
-                    tabs: const [
-                      Tab(text: 'Notes'),
-                      Tab(text: 'Collects'),
-                      Tab(text: 'Likes'),
-                    ],
-                    labelColor: AppColors.accentDeep,
-                    unselectedLabelColor: Colors.grey[400],
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      color: AppColors.accentDeep.withOpacity(0.2),
-                    ),
-              
-                    labelStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                    unselectedLabelStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+            // Header card
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                child: _ProfileHeaderCard(),
               ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              ListView.builder(
-                padding: const EdgeInsets.all(16.0),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: const Offset(4, 4),
-                            blurRadius: 8,
-                          ),
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.8),
-                            offset: const Offset(-4, -4),
-                            blurRadius: 8,
-                          ),
-                        ],
-                      ),
-                      child: ListTile(
-                        leading: const Icon(Icons.edit_note, color: AppColors.accentDeep),
-                        title: Text(
-                          'My post on Bleach, chapter ${index + 1}',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        subtitle: Text(
-                          'This chapter was so amazing...',
-                          style: GoogleFonts.poppins(color: Colors.grey),
-                        ),
-                        trailing: const Icon(Icons.more_vert, color: Colors.grey),
-                        onTap: () {},
-                      ),
-                    ),
-                  );
-                },
-              ),
-              Center(
-                child: Text(
-                  'Your collected comics will appear here.',
-                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey),
-                ),
-              ),
-              Center(
-                child: Text(
-                  'Comics and posts you have liked.',
-                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+            ),
 
-  Widget _buildStatsColumn(String count, String label) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: AnimatedScale(
-        scale: 1.0,
-        duration: const Duration(milliseconds: 300),
-        child: Column(
-          children: [
-            ShaderMask(
-              shaderCallback: (bounds) => const LinearGradient(
-                colors: [AppColors.accentDeep, Colors.white],
-              ).createShader(bounds),
-              child: Text(
-                count,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white,
+            // Balance
+            SliverToBoxAdapter(
+              child: _Section(
+                title: 'Balance',
+                child: _BalanceCard(
+                  coins: 1240,
+                  onBuy: () {},
+                  onTopUp: () {},
                 ),
               ),
             ),
-            Text(
-              label,
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                color: Colors.white70,
-                letterSpacing: 0.3,
+
+            // Quick actions (grid)
+            SliverToBoxAdapter(
+              child: _Section(
+                title: 'Quick actions',
+                child: _QuickActionsGrid(
+                  items: const [
+                    _QuickActionItem(
+                      title: 'Shop',
+                      subtitle: 'Coins • Bundles • Passes',
+                      icon: Icons.store_mall_directory_outlined,
+                    ),
+                    _QuickActionItem(
+                      title: 'Purchases',
+                      subtitle: 'History & receipts',
+                      icon: Icons.receipt_long_outlined,
+                    ),
+                    _QuickActionItem(
+                      title: 'Subscriptions',
+                      subtitle: 'Premium / auto-renew',
+                      icon: Icons.auto_awesome_outlined,
+                    ),
+                    _QuickActionItem(
+                      title: 'Gift Center',
+                      subtitle: 'Send coins/passes',
+                      icon: Icons.card_giftcard_outlined,
+                    ),
+                  ],
+                ),
               ),
             ),
+
+            // Stats & badges
+            SliverToBoxAdapter(
+              child: _Section(
+                title: 'Stats & badges',
+                child: Column(
+                  children: const [
+                    _ReadingStreakCard(days: 7, progress: 0.7),
+                    SizedBox(height: 12),
+                    _AchievementsCard(
+                      text: 'Completed 10 series • 100 chapters read',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Library shortcuts
+            SliverToBoxAdapter(
+              child: _Section(
+                title: 'Library shortcuts',
+                child: _ListCard(
+                  tiles: [
+                    _ListItem(
+                      icon: Icons.bookmarks_outlined,
+                      title: 'Open My Shelf',
+                      onTap: () {},
+                    ),
+                    _ListItem(
+                      icon: Icons.playlist_add_outlined,
+                      title: 'Saved Lists (Playlists)',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Account & app
+            SliverToBoxAdapter(
+              child: _Section(
+                title: 'Account & app',
+                child: _ListCard(
+                  tiles: [
+                    _ListItem(
+                      icon: Icons.settings_outlined,
+                      title: 'Settings',
+                      onTap: () {},
+                    ),
+                    _ListItem(
+                      icon: Icons.help_outline,
+                      title: 'Help & support',
+                      onTap: () {},
+                    ),
+                    _ListItem(
+                      icon: Icons.info_outline,
+                      title: 'About / Terms',
+                      onTap: () {},
+                    ),
+                    _ListItem(
+                      icon: Icons.logout,
+                      title: 'Log out',
+                      isDestructive: true,
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
           ],
         ),
       ),
@@ -392,45 +159,390 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class _SliverTabDelegate extends SliverPersistentHeaderDelegate {
-  _SliverTabDelegate(this._tabBar);
+/* =========================
+ *  Header & Section widgets
+ * ========================= */
 
-  final TabBar _tabBar;
-
+class _ProfileHeaderCard extends StatelessWidget {
   @override
-  double get minExtent => _tabBar.preferredSize.height;
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
 
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.withOpacity(0.2)),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+        color: AppColors.accentDeep.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.accentDeep.withOpacity(0.15)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Top row: avatar + name + ID + member since
+          Row(
+            children: [
+              const CircleAvatar(
+                radius: 28,
+                backgroundColor: Color(0xFFE6ECFF),
+                child: Icon(Icons.person, color: AppColors.accentDeep, size: 28),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Your Display Name',
+                        style: textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        )),
+                    const SizedBox(height: 4),
+                    Text(
+                      'ID: 7584•••838 • Member since 2025',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Tiny action chips could go here if needed
+            ],
+          ),
+          const SizedBox(height: 12),
+
+          // Buttons (Edit / Share)
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    side: BorderSide(color: AppColors.accentDeep.withOpacity(0.6)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text('Edit profile'),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    backgroundColor: Colors.black.withOpacity(0.04),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text('Share'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+
+          // Followers / Following
+          Text(
+            'Followers 1 • Following 12',
+            style: textTheme.bodySmall?.copyWith(color: Colors.black54),
           ),
         ],
       ),
-      child: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: _tabBar,
-        ),
+    );
+  }
+}
+
+class _Section extends StatelessWidget {
+  const _Section({required this.title, required this.child});
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title,
+              style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+/* ================
+ *  Balance card
+ * ================ */
+
+class _BalanceCard extends StatelessWidget {
+  const _BalanceCard({
+    required this.coins,
+    required this.onBuy,
+    required this.onTopUp,
+  });
+
+  final int coins;
+  final VoidCallback onBuy;
+  final VoidCallback onTopUp;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(context),
+      child: Row(
+        children: [
+          // Coin label
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Coins', style: t.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+                const SizedBox(height: 4),
+                Text('Balance: ${_fmt(coins)}', style: t.bodyMedium?.copyWith(color: Colors.black54)),
+              ],
+            ),
+          ),
+          // Actions
+          FilledButton(
+            onPressed: onBuy,
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.accentDeep,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            ),
+            child: const Text('Buy'),
+          ),
+          const SizedBox(width: 8),
+          OutlinedButton(
+            onPressed: onTopUp,
+            style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            ),
+            child: const Text('Top up'),
+          ),
+        ],
       ),
     );
   }
 
-  @override
-  bool shouldRebuild(_SliverTabDelegate oldDelegate) {
-    return false;
+  String _fmt(int n) {
+    final s = n.toString();
+    final buf = StringBuffer();
+    for (int i = 0; i < s.length; i++) {
+      final j = s.length - i;
+      buf.write(s[i]);
+      if (j > 1 && j % 3 == 1) buf.write(',');
+    }
+    return buf.toString();
   }
+}
+
+/* ======================
+ *  Quick actions (grid)
+ * ====================== */
+
+class _QuickActionsGrid extends StatelessWidget {
+  const _QuickActionsGrid({required this.items});
+  final List<_QuickActionItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: items.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 110,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+      ),
+      itemBuilder: (_, i) => _QuickActionCard(item: items[i]),
+    );
+  }
+}
+
+class _QuickActionItem {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  const _QuickActionItem({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+}
+
+class _QuickActionCard extends StatelessWidget {
+  const _QuickActionCard({required this.item});
+  final _QuickActionItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: _cardDecoration(context),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(item.icon, color: AppColors.accentDeep),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.title,
+                    style: t.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+                const SizedBox(height: 4),
+                Text(item.subtitle,
+                    style: t.bodySmall?.copyWith(color: Colors.black54)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/* ===================
+ *  Stats & Achievements
+ * =================== */
+
+class _ReadingStreakCard extends StatelessWidget {
+  const _ReadingStreakCard({required this.days, required this.progress});
+  final int days;
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Reading streak', style: t.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: progress.clamp(0.0, 1.0),
+              minHeight: 10,
+              backgroundColor: Colors.grey.shade300,
+              color: AppColors.accentDeep,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text('$days days', style: t.bodySmall?.copyWith(color: Colors.black54)),
+        ],
+      ),
+    );
+  }
+}
+
+class _AchievementsCard extends StatelessWidget {
+  const _AchievementsCard({required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: _cardDecoration(context),
+      child: Row(
+        children: [
+          const Icon(Icons.emoji_events_outlined, color: AppColors.accentDeep),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(text, style: t.bodyMedium),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/* ======================
+ *  Lists (library, account)
+ * ====================== */
+
+class _ListCard extends StatelessWidget {
+  const _ListCard({required this.tiles});
+  final List<_ListItem> tiles;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: _cardDecoration(context),
+      child: Column(
+        children: [
+          for (int i = 0; i < tiles.length; i++) ...[
+            ListTile(
+              leading: Icon(
+                tiles[i].icon,
+                color: tiles[i].isDestructive ? Colors.red : AppColors.accentDeep,
+              ),
+              title: Text(
+                tiles[i].title,
+                style: tiles[i].isDestructive
+                    ? const TextStyle(color: Colors.red)
+                    : null,
+              ),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: tiles[i].onTap,
+            ),
+            if (i != tiles.length - 1)
+              Divider(height: 1, color: Colors.grey.withOpacity(0.2)),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ListItem {
+  final IconData icon;
+  final String title;
+  final bool isDestructive;
+  final VoidCallback onTap;
+  const _ListItem({
+    required this.icon,
+    required this.title,
+    this.isDestructive = false,
+    required this.onTap,
+  });
+}
+
+/* ==============
+ *  Helpers
+ * ============== */
+
+BoxDecoration _cardDecoration(BuildContext context) {
+  return BoxDecoration(
+    color: Theme.of(context).cardColor,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: Colors.grey.withOpacity(0.15)),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.04),
+        blurRadius: 8,
+        offset: const Offset(0, 2),
+      ),
+    ],
+  );
 }
